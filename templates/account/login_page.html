@@ -7,6 +7,10 @@
     <title>login page</title>
 </head>
 <body>
-    
+    <form method="post">
+        {% csrf_token %}
+        {{form}}
+        <button type="submit">ورود</button>
+    </form>
 </body>
 </html>
