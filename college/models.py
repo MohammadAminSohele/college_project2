@@ -1,5 +1,7 @@
 from django.db import models
 
+from django.db.models import Q
+
 # Create your models here.
 
 class Teacher(models.Model):
@@ -17,6 +19,14 @@ class Teacher(models.Model):
     def __str__(self):
         return f'{self.first_name}-{self.last_name}'
 
+
+class product_manager(models.Manager):
+    def search(self, query):
+        lookup = (
+            Q(nat_code__icontains=query) 
+        )
+        return self.get_queryset().filter(lookup).distinct()
+
 class Student(models.Model):
     nat_code = models.CharField(max_length = 150)
     first_name = models.CharField(max_length = 150)
@@ -28,6 +38,8 @@ class Student(models.Model):
     score = models.IntegerField()
     regdate = models.DateField()
     description = models.TextField()
+
+    objects=product_manager()
 
     def __str__(self):
         return f'{self.first_name}-{self.last_name}'
