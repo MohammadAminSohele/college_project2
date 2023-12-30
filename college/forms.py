@@ -17,3 +17,9 @@ class StudentTermForm(forms.ModelForm):
     class Meta:
         model = models.StudentTerm
         fields = '__all__'
+
+
+class TeacherTermForm(forms.ModelForm):
+    class Meta:
+        model = models.TeacherTerm
+        fields = '__all__'

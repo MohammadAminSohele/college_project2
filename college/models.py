@@ -66,3 +66,14 @@ class StudentTerm(models.Model):
 
     def __str__(self):
         return self.student.last_name 
+
+
+class TeacherTerm(models.Model):
+    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    term = models.ForeignKey(Term, on_delete=models.CASCADE)
+    regdate = models.DateField()
+    description = models.TextField()
+
+    def __str__(self):
+        return f'{self.teacher.first_name}-{self.teacher.last_name}'
