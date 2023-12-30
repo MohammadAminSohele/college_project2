@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView
-
+from django.http import Http404
 
 from .forms import StudentForm,StudentTermForm,TeacherForm,TeacherTermForm
 from .import models
@@ -71,8 +71,12 @@ class search_student_list(ListView):
         return models.Student.objects.all().values('nat_code','first_name','last_name')
 
 
-def show_student_info(request):
+def show_student_info(request,*args,**kwargs):
+    student_id=kwargs['studentId']
+    student=models.Student.objects.get_by_id(student_id)
+    if student is None:
+        raise Http404('دانشجو مورد نظر یافت نشد')
     context={
-
+        'student':student
     }
     return render(request,'college/show_student_info.html',context)

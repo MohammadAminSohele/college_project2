@@ -26,6 +26,11 @@ class product_manager(models.Manager):
             Q(nat_code__icontains=query) 
         )
         return self.get_queryset().filter(lookup).distinct()
+    def get_by_id(self, studentId):
+        qs = self.get_queryset().filter(id=studentId)
+        if qs.count() == 1:
+            return qs.first()
+        return None
 
 class Student(models.Model):
     nat_code = models.CharField(max_length = 150)
