@@ -8,6 +8,11 @@ class StudentForm(forms.ModelForm):
         fields = '__all__'
 
 
+class TeacherForm(forms.ModelForm):
+    class Meta:
+        model = models.Teacher
+        fields = '__all__'
+
 class StudentTermForm(forms.ModelForm):
     class Meta:
         model = models.StudentTerm

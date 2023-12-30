@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import StudentForm,StudentTermForm
+from .forms import StudentForm,StudentTermForm,TeacherForm
 
 # Create your views here.
 
@@ -12,6 +12,17 @@ def register_student(request):
     else:
         form = StudentForm()
     return render(request, 'college/register_student.html', {'form': form})
+
+
+def register_teacher(request):
+    if request.method == 'POST':
+        form = TeacherForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    else:
+        form = TeacherForm()
+    return render(request, 'college/register_teacher.html', {'form': form})
 
 
 def add_student_term(request):
