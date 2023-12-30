@@ -4,7 +4,7 @@ from .import views
 
 urlpatterns = [
     path('show/student/', views.show_students_info, name='show_students_info'),
-    path('show/student/<studentId>', views.show_student_info, name='show_students_info'),
+    path('show/student/<studentId>/<studentLastname>', views.show_student_info, name='show_students_info'),
     path('show/student/search', views.search_student_list.as_view(), name='search_student_list'),
     path('register/student/', views.register_student, name='register_student'),
     path('register/student/student_term', views.add_student_term, name='add_student_term'),
