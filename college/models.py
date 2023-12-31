@@ -46,8 +46,15 @@ class Student(models.Model):
 
     objects=product_manager()
 
+    # college/show/student/3
+
     def __str__(self):
         return f'{self.first_name}-{self.last_name}'
+
+
+    # def get_absolute_url(self):
+    #     return f"/{self.id}/{self.last_name.replace(' ', '-')}"
+
 class Level(models.Model):
     name = models.CharField(max_length = 150,null=True)
     regdate = models.DateField(null=True)
@@ -83,7 +90,7 @@ class StudentTerm(models.Model):
 
     def __str__(self):
         return self.student.last_name 
-
+    
 
 class TeacherTerm(models.Model):
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
