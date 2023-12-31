@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from django.views.generic import ListView
 from django.http import Http404
 
@@ -80,3 +80,15 @@ def show_student_info(request,*args,**kwargs):
         'student':student
     }
     return render(request,'college/show_student_info.html',context)
+
+def edit_student_info(request, student_id):
+    student = get_object_or_404(models.Student, id=student_id)
+
+    if request.method == 'POST':
+        form = StudentForm(request.POST, instance=student)
+        if form.is_valid():
+            form.save()
+    else:
+        form = StudentForm(instance=student)
+
+    return render(request, 'college/edit_student_info.html', {'form': form, 'student': student})
