@@ -119,3 +119,15 @@ def edit_student_info(request, student_id):
         form = StudentForm(instance=student)
 
     return render(request, 'college/edit_student_info.html', {'form': form, 'student': student})
+
+def edit_teacher_info(request, teacher_id):
+    teacher = get_object_or_404(models.Teacher, id=teacher_id)
+
+    if request.method == 'POST':
+        form = TeacherForm(request.POST, instance=teacher)
+        if form.is_valid():
+            form.save()
+    else:
+        form = TeacherForm(instance=teacher)
+
+    return render(request, 'college/edit_teacher_info.html', {'form': form, 'student': teacher})

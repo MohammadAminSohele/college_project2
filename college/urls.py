@@ -5,6 +5,7 @@ from .import views
 urlpatterns = [
     # edit
     path('edit/student/<student_id>', views.edit_student_info, name='edit_student_info'),
+    path('edit/teacher/<teacher_id>', views.edit_teacher_info, name='edit_teacher_info'),
     # show
     path('show/student/', views.show_students_info, name='show_students_info'),
     path('show/teacher/', views.show_teachers_info, name='show_teachers_info'),
