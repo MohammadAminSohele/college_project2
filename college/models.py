@@ -4,6 +4,15 @@ from django.db.models import Q
 
 # Create your models here.
 
+class Payment(models.Model):
+    date_of_payment = models.DateField(auto_now=True)
+    price = models.IntegerField()
+    account = models.CharField(max_length = 150)
+    remaining_price = models.CharField(max_length = 150)
+    
+    # def __str__(self):
+    #     return self.test() 
+    
 class product_manager(models.Manager):
     def search(self, query):
         lookup = (
@@ -44,6 +53,8 @@ class Student(models.Model):
     score = models.IntegerField()
     regdate = models.DateField()
     description = models.TextField()
+    payment = models.ForeignKey(Payment, on_delete=models.CASCADE,null=True)
+    
 
     objects=product_manager()
 
