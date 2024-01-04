@@ -106,6 +106,15 @@ def show_student_info(request,*args,**kwargs):
     }
     return render(request,'college/show_student_info.html',context)
 
+def show_student_education_history_info(request,*args,**kwargs):
+    student_id=kwargs['studentId']
+    student_term=models.StudentTerm.objects.get_by_id(student_id)
+    if student_term is None:
+        raise Http404('ترم دانشجو مورد نظر یافت نشد')
+    context={
+        'student_term':student_term
+    }
+    return render(request,'college/show_student_education_history_info.html',context)
 
 def show_teacher_info(request,*args,**kwargs):
     teacher_id=kwargs['teachertId']
