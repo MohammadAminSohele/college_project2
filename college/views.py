@@ -60,6 +60,14 @@ def show_students_info(request):
     }
     return render(request,'college/show_students_info.html',context)
 
+def show_teachers_info(request):
+    teachers=models.Teacher.objects.all().values('nat_code','first_name','last_name')
+    context={
+        'teachers':teachers
+    }
+    return render(request,'college/show_teachers_info.html',context)
+
+
 class search_student_list(ListView):
     template_name = 'college/search-student-list.html'
 
