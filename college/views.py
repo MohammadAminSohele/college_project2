@@ -89,6 +89,17 @@ def show_student_info(request,*args,**kwargs):
     }
     return render(request,'college/show_student_info.html',context)
 
+
+def show_teacher_info(request,*args,**kwargs):
+    teacher_id=kwargs['teachertId']
+    teacher=models.Teacher.objects.get_by_id(teacher_id)
+    if teacher is None:
+        raise Http404('استاد مورد نظر یافت نشد')
+    context={
+        'teacher':teacher
+    }
+    return render(request,'college/show_teacher_info.html',context)
+
 def edit_student_info(request, student_id):
     student = get_object_or_404(models.Student, id=student_id)
 

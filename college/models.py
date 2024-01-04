@@ -4,6 +4,18 @@ from django.db.models import Q
 
 # Create your models here.
 
+class product_manager(models.Manager):
+    def search(self, query):
+        lookup = (
+            Q(nat_code__icontains=query) 
+        )
+        return self.get_queryset().filter(lookup).distinct()
+    def get_by_id(self, studentId):
+        qs = self.get_queryset().filter(id=studentId)
+        if qs.count() == 1:
+            return qs.first()
+        return None
+
 class Teacher(models.Model):
     nat_code = models.CharField(max_length = 150)
     first_name = models.CharField(max_length = 150)
@@ -16,21 +28,10 @@ class Teacher(models.Model):
     regdate = models.DateField()
     description = models.TextField()
 
+    objects=product_manager()
+
     def __str__(self):
         return f'{self.first_name}-{self.last_name}'
-
-
-class product_manager(models.Manager):
-    def search(self, query):
-        lookup = (
-            Q(nat_code__icontains=query) 
-        )
-        return self.get_queryset().filter(lookup).distinct()
-    def get_by_id(self, studentId):
-        qs = self.get_queryset().filter(id=studentId)
-        if qs.count() == 1:
-            return qs.first()
-        return None
 
 class Student(models.Model):
     nat_code = models.CharField(max_length = 150)
