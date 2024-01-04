@@ -60,6 +60,15 @@ def show_students_info(request):
     }
     return render(request,'college/show_students_info.html',context)
 
+def show_students_education_history(request):
+    students=models.Student.objects.all().values('first_name','last_name','score')
+    students_term=models.StudentTerm.objects.all()    
+    context={
+        'students':students,
+        'students_term':students_term
+    }
+    return render(request,'college/show_students_education_history.html',context)
+
 def show_teachers_info(request):
     teachers=models.Teacher.objects.all().values('nat_code','first_name','last_name')
     context={
