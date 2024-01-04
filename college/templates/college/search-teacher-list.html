@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>teacher search result info</title>
+</head>
+<body>
+    <form action="/college/show/teacher/search" method="get">
+        <input type="text" placeholder="جستـجو" value="{{ request.GET.q }}" name="q" />
+    </form>
+    <br><br>
+    {% for teacher in object_list %}
+        {{teacher.nat_code}} <br><br>
+        {{teacher.first_name}} <br><br>
+        {{teacher.last_name}} <br><br>
+        <hr>
+    {% endfor %}
+</body>
+</html>

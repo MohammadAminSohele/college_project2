@@ -78,6 +78,14 @@ class search_student_list(ListView):
             return models.Student.objects.search(query)
         return models.Student.objects.all().values('nat_code','first_name','last_name')
 
+class search_teacher_list(ListView):
+    template_name = 'college/search-teacher-list.html'
+    def get_queryset(self):
+        request = self.request
+        query = request.GET.get('q')
+        if query is not None:
+            return models.Teacher.objects.search(query)
+        return models.Teacher.objects.all().values('nat_code','first_name','last_name')
 
 def show_student_info(request,*args,**kwargs):
     student_id=kwargs['studentId']
