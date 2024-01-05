@@ -65,12 +65,19 @@ class Payment(models.Model):
     remaining_price = models.CharField(max_length = 150,null=True,blank=True)
     code = models.CharField(max_length = 150,null=True)
     
+    # def get_total_price(self):
+    #     amount = 0
+    #     amount += self.total - self.price
+    #     return amount
+    
+    # def get_total_price_for_all_students(Payment):
+    #     total_price=sum(Payment.get_total_price() for payment in Payment.objects.all())
+    #     return total_price
     
     # def __str__(self):
     #     return self.test() 
 
-    # def get_total_price(self):
-    #     return self.total - self.price
+    
 
     # def get_absolute_url(self):
     #     return f"/{self.id}/{self.last_name.replace(' ', '-')}"
@@ -118,6 +125,7 @@ class TeacherTerm(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     term = models.ForeignKey(Term, on_delete=models.CASCADE)
     regdate = models.DateField()
+    class_number = models.IntegerField(null=True)
     description = models.TextField()
 
     def __str__(self):

@@ -69,6 +69,14 @@ def show_students_info(request):
     }
     return render(request,'college/show_students_info.html',context)
 
+def students_payment_history(request):
+    students=models.Payment.objects.all()
+    context={
+        'students':students,
+        # 'total':students.get_total_price()
+    }
+    return render(request,'college/students_payment_history.html',context)
+
 def show_students_education_history(request):
     students=models.Student.objects.all().values('first_name','last_name','score')
     students_term=models.StudentTerm.objects.all()    
