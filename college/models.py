@@ -4,14 +4,7 @@ from django.db.models import Q
 
 # Create your models here.
 
-class Payment(models.Model):
-    date_of_payment = models.DateField(auto_now=True)
-    price = models.IntegerField()
-    account = models.CharField(max_length = 150)
-    remaining_price = models.CharField(max_length = 150)
-    
-    # def __str__(self):
-    #     return self.test() 
+
     
 class product_manager(models.Manager):
     def search(self, query):
@@ -53,7 +46,7 @@ class Student(models.Model):
     score = models.IntegerField()
     regdate = models.DateField()
     description = models.TextField()
-    payment = models.ForeignKey(Payment, on_delete=models.CASCADE,null=True)
+    # payment = models.ForeignKey(Payment, on_delete=models.CASCADE,null=True)
     
 
     objects=product_manager()
@@ -62,7 +55,20 @@ class Student(models.Model):
 
     def __str__(self):
         return f'{self.first_name}-{self.last_name}'
+    
+class Payment(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE,null=True)
+    date_of_payment = models.DateField(auto_now=True)
+    total = models.IntegerField(default=2000000,blank=True,null=True)
+    price = models.IntegerField()
+    account = models.CharField(max_length = 150,default=6037991784183869)
+    remaining_price = models.CharField(max_length = 150,null=True,blank=True)
+    
+    # def __str__(self):
+    #     return self.test() 
 
+    # def get_total_price(self):
+    #     return self.total - self.price
 
     # def get_absolute_url(self):
     #     return f"/{self.id}/{self.last_name.replace(' ', '-')}"
