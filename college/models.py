@@ -99,6 +99,7 @@ class StudentTerm(models.Model):
     regdate = models.DateField()
     description = models.TextField()
     
+    objects=product_manager()
 
     def __str__(self):
         return self.student.last_name 
