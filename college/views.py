@@ -123,6 +123,16 @@ def show_student_info(request,*args,**kwargs):
     }
     return render(request,'college/show_student_info.html',context)
 
+def show_student_payment(request,*args,**kwargs):
+    student_id=kwargs['studentId']
+    payment=models.Payment.objects.filter(student_id=student_id)
+    if payment is None:
+        raise Http404('تاریخچه وجه دانشجو مورد نظر یافت نشد')
+    context={
+        'payment':payment
+    }
+    return render(request,'college/show_student_payment.html',context)
+
 def show_student_education_history_info(request,*args,**kwargs):
     student_id=kwargs['studentId']
     student_term=models.StudentTerm.objects.get_by_id(student_id)

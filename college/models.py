@@ -64,6 +64,8 @@ class Payment(models.Model):
     account = models.CharField(max_length = 150,default=6037991784183869)
     remaining_price = models.CharField(max_length = 150,null=True,blank=True)
     code = models.CharField(max_length = 150,null=True)
+
+    objects=product_manager()
     
     # def get_total_price(self):
     #     amount = 0
