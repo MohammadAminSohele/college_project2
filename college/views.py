@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect,get_object_or_404
 from django.views.generic import ListView
 from django.http import Http404
 
-from .forms import StudentForm,StudentTermForm,TeacherForm,TeacherTermForm
+from .forms import StudentForm,StudentTermForm,TeacherForm,TeacherTermForm,StudentPaymentForm
 from .import models
 
 # Create your views here.
@@ -40,6 +40,15 @@ def add_student_term(request):
 
     return render(request, 'college/add_student_term.html', {'form': form})
 
+def add_student_payment(request):
+    if request.method == 'POST':
+        form = StudentPaymentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/')  # Redirect to a success page
+    else:
+        form = StudentPaymentForm()
+    return render(request, 'college/add_student_payment.html', {'form': form})
 
 def add_teacher_term(request):
     if request.method == 'POST':

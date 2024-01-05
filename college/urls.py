@@ -18,6 +18,7 @@ urlpatterns = [
     # register
     path('register/student/', views.register_student, name='register_student'),
     path('register/student/student_term', views.add_student_term, name='add_student_term'),
+    path('register/student/payment', views.add_student_payment, name='add_student_payment'),
     path('register/teacher/', views.register_teacher, name='register_teacher'),
     path('register/teacher/teacher_term', views.add_teacher_term, name='add_teacher_term'),
 ]

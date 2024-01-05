@@ -58,11 +58,13 @@ class Student(models.Model):
     
 class Payment(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE,null=True)
-    date_of_payment = models.DateField(auto_now=True)
+    date_of_payment = models.DateField()
     total = models.IntegerField(default=2000000,blank=True,null=True)
     price = models.IntegerField()
     account = models.CharField(max_length = 150,default=6037991784183869)
     remaining_price = models.CharField(max_length = 150,null=True,blank=True)
+    code = models.CharField(max_length = 150,null=True)
+    
     
     # def __str__(self):
     #     return self.test() 
