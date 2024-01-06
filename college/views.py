@@ -71,6 +71,8 @@ def show_students_info(request):
 
 def students_payment_history(request):
     students=models.Payment.objects.all()
+    for student in students:
+        student.remaining_price = student.total - student.price
     context={
         'students':students,
         # 'total':students.get_total_price()
