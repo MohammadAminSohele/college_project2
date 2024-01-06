@@ -125,6 +125,17 @@ def show_student_info(request,*args,**kwargs):
     }
     return render(request,'college/show_student_info.html',context)
 
+def show_student_payment_history(request,*args,**kwargs):
+    student_id=kwargs['studentId']
+    payment=models.Payment.objects.get_by_id(student_id)
+    payment.remaining_price = payment.total - payment.price
+    if payment is None:
+        raise Http404('تاریخچه وجه دانشجو مورد نظر یافت نشد ')
+    context={
+        'payment':payment
+    }
+    return render(request,'college/show_student_payment_history.html',context)
+
 def show_student_payment(request,*args,**kwargs):
     student_id=kwargs['studentId']
     payment=models.Payment.objects.filter(student_id=student_id)
