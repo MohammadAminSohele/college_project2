@@ -16,6 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+from config import settings
+from django.conf.urls.static import static
+
+from .settings import STATIC_ROOT, STATIC_URL, MEDIA_ROOT, MEDIA_URL
 
 from .import views
 
@@ -25,3 +29,8 @@ urlpatterns = [
     path('college/',include('college.urls')),
     path('admin/', admin.site.urls),
 ]
+if settings.DEBUG:
+    urlpatterns = urlpatterns + \
+        static(settings.STATIC_URL, document_root=STATIC_ROOT)
+    urlpatterns = urlpatterns + \
+        static(settings.MEDIA_URL, document_root=MEDIA_ROOT)
