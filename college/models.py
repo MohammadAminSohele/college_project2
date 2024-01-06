@@ -67,19 +67,8 @@ class Payment(models.Model):
 
     objects=product_manager()
     
-    # def get_total_price(self):
-    #     amount = 0
-    #     amount += self.total - self.price
-    #     return amount
-    
-    # def get_total_price_for_all_students(Payment):
-    #     total_price=sum(Payment.get_total_price() for payment in Payment.objects.all())
-    #     return total_price
-    
     # def __str__(self):
     #     return self.test() 
-
-    
 
     # def get_absolute_url(self):
     #     return f"/{self.id}/{self.last_name.replace(' ', '-')}"
