@@ -19,16 +19,16 @@ class product_manager(models.Manager):
         return None
 
 class Teacher(models.Model):
-    nat_code = models.CharField(max_length = 150)
-    first_name = models.CharField(max_length = 150)
-    last_name = models.CharField(max_length = 150)
-    birthday_date = models.DateField()
-    telephone = models.CharField(max_length = 150)
-    mobile = models.CharField(max_length = 150)
-    email = models.EmailField()
-    field = models.CharField(max_length = 150)
-    regdate = models.DateField()
-    description = models.TextField()
+    nat_code = models.CharField(max_length = 150,verbose_name='کد ملی استاد')
+    first_name = models.CharField(max_length = 150,verbose_name='نام استاد')
+    last_name = models.CharField(max_length = 150,verbose_name='نام خانوادگی استاد')
+    birthday_date = models.DateField(verbose_name='تاریخ تولد استاد')
+    telephone = models.CharField(max_length = 150,verbose_name='شماره تلفن ثابت استاد')
+    mobile = models.CharField(max_length = 150,verbose_name='شماره تلفن استاد')
+    email = models.EmailField(verbose_name='ایمیل استاد')
+    field = models.CharField(max_length = 150,verbose_name='رشته تحصیلی استاد')
+    regdate = models.DateField(verbose_name='تاریخ ثبت استاد')
+    description = models.TextField(verbose_name='توضیحات')
 
     objects=product_manager()
 
@@ -36,16 +36,16 @@ class Teacher(models.Model):
         return f'{self.first_name}-{self.last_name}'
 
 class Student(models.Model):
-    nat_code = models.CharField(max_length = 150)
-    first_name = models.CharField(max_length = 150)
-    last_name = models.CharField(max_length = 150)
-    birthday_date = models.DateField()
-    telephone = models.CharField(max_length = 150)
-    mobile = models.CharField(max_length = 150)
-    email = models.EmailField()
-    score = models.IntegerField()
-    regdate = models.DateField()
-    description = models.TextField()
+    nat_code = models.CharField(max_length = 150,verbose_name='کد ملی')
+    first_name = models.CharField(max_length = 150,verbose_name='نام دانشجو')
+    last_name = models.CharField(max_length = 150,verbose_name='نام خانوادگی دانشجو')
+    birthday_date = models.DateField(verbose_name='تاریخ تولد دانشجو')
+    telephone = models.CharField(max_length = 150,verbose_name='شماره تلفن ثابت دانشجو')
+    mobile = models.CharField(max_length = 150,verbose_name='شماره تلفن همراه دانشجو')
+    email = models.EmailField(verbose_name='ایمیل دانشجو')
+    score = models.IntegerField(verbose_name='نمره دانشجو')
+    regdate = models.DateField(verbose_name='تاریخ ثبت دانشجو')
+    description = models.TextField(verbose_name='توضیحات')
     # payment = models.ForeignKey(Payment, on_delete=models.CASCADE,null=True)
     
 
@@ -57,53 +57,53 @@ class Student(models.Model):
         return f'{self.first_name}-{self.last_name}'
     
 class Payment(models.Model):
-    student = models.ForeignKey(Student, on_delete=models.CASCADE,null=True)
-    date_of_payment = models.DateField()
-    total = models.IntegerField(default=2000000,blank=True,null=True)
-    price = models.IntegerField()
-    account = models.CharField(max_length = 150,default=6037991784183869)
-    remaining_price = models.CharField(max_length = 150,null=True,blank=True)
-    code = models.CharField(max_length = 150,null=True)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE,null=True,verbose_name='دانشجو')
+    date_of_payment = models.DateField(verbose_name='تاریخ پرداخت')
+    total = models.IntegerField(default=2000000,blank=True,null=True,verbose_name='مبلغ قابل پرداختت')
+    price = models.IntegerField(verbose_name='مبلغ')
+    account = models.CharField(max_length = 150,default=6037991784183869,verbose_name='به حساب')
+    remaining_price = models.CharField(max_length = 150,null=True,blank=True,verbose_name='مبلغ مانده')
+    code = models.CharField(max_length = 150,null=True,verbose_name='کد پیگیری')
 
     objects=product_manager()
     
-    # def __str__(self):
-    #     return self.test() 
+    def __str__(self):
+        return self.student.first_name
 
     # def get_absolute_url(self):
     #     return f"/{self.id}/{self.last_name.replace(' ', '-')}"
 
 class Level(models.Model):
-    name = models.CharField(max_length = 150,null=True)
-    regdate = models.DateField(null=True)
-    description = models.TextField()
+    name = models.CharField(max_length = 150,null=True,verbose_name='نام مقطع')
+    regdate = models.DateField(null=True,verbose_name='تاریخ ثبت')
+    description = models.TextField(verbose_name='توضیحات')
 
     def __str__(self):
         return self.name
 class Course(models.Model):
-    name = models.CharField(max_length = 150)
-    level = models.ForeignKey(Level, on_delete=models.CASCADE)
-    regdate = models.DateField()
-    description = models.TextField()
+    name = models.CharField(max_length = 150,verbose_name='نام درس')
+    level = models.ForeignKey(Level, on_delete=models.CASCADE,verbose_name='مقطع')
+    regdate = models.DateField(verbose_name='تاریخ ثبت')
+    description = models.TextField(verbose_name='توضیحات')
 
     def __str__(self):
         return self.name
 class Term(models.Model):
-    name = models.CharField(max_length = 150)
-    startDate = models.DateField()
-    endDate = models.DateField()
-    regdate = models.DateField()
-    description = models.TextField()
+    name = models.CharField(max_length = 150,verbose_name='نام ترم')
+    startDate = models.DateField(verbose_name='تاریخ شروع')
+    endDate = models.DateField(verbose_name='تاریخ پایان')
+    regdate = models.DateField(verbose_name='تاریخ ثبت')
+    description = models.TextField(verbose_name='توضیحات')
 
     def __str__(self):
         return self.name
     
 class StudentTerm(models.Model):
-    student = models.ForeignKey(Student, on_delete=models.CASCADE)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    term = models.ForeignKey(Term, on_delete=models.CASCADE)
-    regdate = models.DateField()
-    description = models.TextField()
+    student = models.ForeignKey(Student, on_delete=models.CASCADE,verbose_name='دانشجو')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE,verbose_name='درس')
+    term = models.ForeignKey(Term, on_delete=models.CASCADE,verbose_name='ترم')
+    regdate = models.DateField(verbose_name='تاریخ ثبت')
+    description = models.TextField(verbose_name='توضیحات')
     
     objects=product_manager()
 
@@ -112,12 +112,12 @@ class StudentTerm(models.Model):
     
 
 class TeacherTerm(models.Model):
-    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    term = models.ForeignKey(Term, on_delete=models.CASCADE)
-    regdate = models.DateField()
-    class_number = models.IntegerField(null=True)
-    description = models.TextField()
+    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE,verbose_name='استاد')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE,verbose_name='درس')
+    term = models.ForeignKey(Term, on_delete=models.CASCADE,verbose_name='ترم')
+    regdate = models.DateField(verbose_name='تاریخ ثبت')
+    class_number = models.IntegerField(null=True,verbose_name='شماره کلاس')
+    description = models.TextField(verbose_name='توضیحات')
 
     def __str__(self):
         return f'{self.teacher.first_name}-{self.teacher.last_name}'

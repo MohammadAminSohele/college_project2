@@ -1,16 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>show_student_payment_history</title>
-</head>
-<body>
-        {{payment.student.last_name}} <br><br>
-        {{payment.date_of_payment}} <br><br>
-        {{payment.price}} <br><br>
-        {{payment.account}} <br><br>
-        {{payment.remaining_price }} <br><br>
-</body>
-</html>
+{% extends 'shared/_MainLayou.html' %}
+
+
+{% block content %}
+{{payment.student.last_name}} <br><br>
+{{payment.date_of_payment}} <br><br>
+{{payment.price}} <br><br>
+{{payment.account}} <br><br>
+{{payment.remaining_price }} <br><br>
+{% endblock content %}
+    

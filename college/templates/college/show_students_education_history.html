@@ -1,20 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>show students education history</title>
-</head>
-<body>
+{% extends 'shared/_MainLayou.html' %}
+
+
+{% block content %}
     {% for student in students %}
-        {{student.first_name}} <br><br>
-        {{student.last_name}} <br><br>
-        {{student.score}} <br><br>
+    {{student.first_name}} <br><br>
+    {{student.last_name}} <br><br>
+    {{student.score}} <br><br>
     {% endfor %}
     {% for student_term in students_term %}
-        {{student_term.term.name}} <br><br>
-        {{student_term.term.startDate}} <br><br>
-        {{student_term.term.endDate}} <br><br>
+    {{student_term.term.name}} <br><br>
+    {{student_term.term.startDate}} <br><br>
+    {{student_term.term.endDate}} <br><br>
     {% endfor %}
-</body>
-</html>
+{% endblock content %}

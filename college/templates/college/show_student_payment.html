@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>show_student_payment</title>
-</head>
-<body>
-    {{payment.date_of_payment}}
-</body>
-</html>
+{% extends 'shared/_MainLayou.html' %}
+
+
+{% block content %}
+{{payment.date_of_payment}}
+{% endblock content %}
+    

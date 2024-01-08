@@ -15,7 +15,7 @@ def register_student(request):
             return redirect('/')
     else:
         form = StudentForm()
-    return render(request, 'college/register_student.html', {'form': form})
+    return render(request, 'college/register_student.html', {'form': form,'title':'ثبت اطلاعات دانشجو'})
 
 
 def register_teacher(request):
@@ -26,7 +26,7 @@ def register_teacher(request):
             return redirect('/')
     else:
         form = TeacherForm()
-    return render(request, 'college/register_teacher.html', {'form': form})
+    return render(request, 'college/register_teacher.html', {'form': form,'title':'ثبت اطلاعات استاد'})
 
 
 def add_student_term(request):
@@ -38,7 +38,7 @@ def add_student_term(request):
     else:
         form = StudentTermForm()
 
-    return render(request, 'college/add_student_term.html', {'form': form})
+    return render(request, 'college/add_student_term.html', {'form': form,'title':'ثبت ترم برای دانشجو'})
 
 def add_student_payment(request):
     if request.method == 'POST':
@@ -48,7 +48,7 @@ def add_student_payment(request):
             return redirect('/')  # Redirect to a success page
     else:
         form = StudentPaymentForm()
-    return render(request, 'college/add_student_payment.html', {'form': form})
+    return render(request, 'college/add_student_payment.html', {'form': form,'title':'ثبت پرداخت وجه دانشجو'})
 
 def add_teacher_term(request):
     if request.method == 'POST':
@@ -59,13 +59,13 @@ def add_teacher_term(request):
     else:
         form = TeacherTermForm()
 
-    return render(request, 'college/add_teacher_term.html', {'form': form})
+    return render(request, 'college/add_teacher_term.html', {'form': form,'title':'ثبت ترم برای استاد'})
 
 
 def show_students_info(request):
     students=models.Student.objects.all().values('nat_code','first_name','last_name')
     context={
-        'students':students
+        'students':students,'title':'اطلاعات دانشجویان'
     }
     return render(request,'college/show_students_info.html',context)
 
@@ -74,7 +74,7 @@ def students_payment_history(request):
     for student in students:
         student.remaining_price = student.total - student.price
     context={
-        'students':students,
+        'students':students,'title':'تاریخچه وجه دانشجویان'
         # 'total':students.get_total_price()
     }
     return render(request,'college/students_payment_history.html',context)
@@ -84,14 +84,14 @@ def show_students_education_history(request):
     students_term=models.StudentTerm.objects.all()    
     context={
         'students':students,
-        'students_term':students_term
+        'students_term':students_term,'title':'تاریخچه تحصیلی دانشجویان'
     }
     return render(request,'college/show_students_education_history.html',context)
 
 def show_teachers_info(request):
     teachers=models.Teacher.objects.all().values('nat_code','first_name','last_name')
     context={
-        'teachers':teachers
+        'teachers':teachers,'title':'اطلاعات اساتید'
     }
     return render(request,'college/show_teachers_info.html',context)
 
@@ -121,6 +121,7 @@ def show_student_info(request,*args,**kwargs):
     if student is None:
         raise Http404('دانشجو مورد نظر یافت نشد')
     context={
+        'title':'اطلاعات دانشجو',
         'student':student
     }
     return render(request,'college/show_student_info.html',context)
@@ -132,6 +133,7 @@ def show_student_payment_history(request,*args,**kwargs):
     if payment is None:
         raise Http404('تاریخچه وجه دانشجو مورد نظر یافت نشد ')
     context={
+        'title':'تاریچه دانشجو',
         'payment':payment
     }
     return render(request,'college/show_student_payment_history.html',context)
@@ -142,6 +144,7 @@ def show_student_payment(request,*args,**kwargs):
     if payment is None:
         raise Http404('تاریخچه وجه دانشجو مورد نظر یافت نشد')
     context={
+        'title':'تاریخچه پرداخت وجه دانشجو',
         'payment':payment
     }
     return render(request,'college/show_student_payment.html',context)
@@ -152,6 +155,7 @@ def show_student_education_history_info(request,*args,**kwargs):
     if student_term is None:
         raise Http404('ترم دانشجو مورد نظر یافت نشد')
     context={
+        'title':'تاریخچه تحصیلی دانشجو',
         'student_term':student_term
     }
     return render(request,'college/show_student_education_history_info.html',context)
@@ -162,6 +166,7 @@ def show_teacher_info(request,*args,**kwargs):
     if teacher is None:
         raise Http404('استاد مورد نظر یافت نشد')
     context={
+        'title':'اطلاعات استاد',
         'teacher':teacher
     }
     return render(request,'college/show_teacher_info.html',context)
@@ -175,8 +180,12 @@ def edit_student_info(request, student_id):
             form.save()
     else:
         form = StudentForm(instance=student)
-
-    return render(request, 'college/edit_student_info.html', {'form': form, 'student': student})
+    context={
+        'title':'ویرایش اطلاعات دانشجو',
+        'form': form, 
+        'student': student
+    }
+    return render(request, 'college/edit_student_info.html', context)
 
 def edit_teacher_info(request, teacher_id):
     teacher = get_object_or_404(models.Teacher, id=teacher_id)
@@ -187,5 +196,9 @@ def edit_teacher_info(request, teacher_id):
             form.save()
     else:
         form = TeacherForm(instance=teacher)
-
-    return render(request, 'college/edit_teacher_info.html', {'form': form, 'student': teacher})
+    context={
+        'title':'ویرایش اطلاعات استاد',
+        'form': form, 
+        'student': teacher
+    }
+    return render(request, 'college/edit_teacher_info.html',context)

@@ -1,17 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>students_payment_history</title>
-</head>
-<body>
+{% extends 'shared/_MainLayou.html' %}
+
+{% block content %}
     {% for student in students %}
-        {{student.student.last_name}} <br><br>
-        {{student.date_of_payment}} <br><br>
-        {{student.price}} <br><br>
-        {{student.account}} <br><br>
-        {{ student.remaining_price }} <br><br>
+    {{student.student.last_name}} <br><br>
+    {{student.date_of_payment}} <br><br>
+    {{student.price}} <br><br>
+    {{student.account}} <br><br>
+    {{ student.remaining_price }} <br><br>
     {% endfor %}
-</body>
-</html>
+{% endblock content %}

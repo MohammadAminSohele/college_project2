@@ -1,16 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>add student term</title>
-</head>
-<body>
-    <h2>Add Student Term</h2>
-  <form method="post" action="{% url 'add_student_term' %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">ثبت نام</button>
-  </form>
-</body>
-</html>
+{% extends 'shared/_MainLayou.html' %}
+
+
+{% block content %}
+<h2>Add Student Term</h2>
+<form method="post" action="{% url 'add_student_term' %}">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">ثبت نام</button>
+</form>
+{% endblock content %}
+  
