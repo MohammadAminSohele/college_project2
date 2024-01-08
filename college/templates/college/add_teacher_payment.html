@@ -1,0 +1,10 @@
+{% extends 'shared/_MainLayout.html' %}
+
+
+{% block content %}
+<form method="post" action="{% url 'add_teacher_payment' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">ثبت نام</button>
+</form>
+{% endblock content %}

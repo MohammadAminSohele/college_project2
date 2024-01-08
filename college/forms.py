@@ -23,6 +23,11 @@ class StudentPaymentForm(forms.ModelForm):
         model = models.Payment
         fields = 'student','date_of_payment','price','code'
 
+class TeacherPaymentForm(forms.ModelForm):
+    class Meta:
+        model = models.TeacherPayment
+        fields = '__all__'
+
 class TeacherTermForm(forms.ModelForm):
     class Meta:
         model = models.TeacherTerm

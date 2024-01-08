@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect,get_object_or_404
 from django.views.generic import ListView
 from django.http import Http404
 
-from .forms import StudentForm,StudentTermForm,TeacherForm,TeacherTermForm,StudentPaymentForm
+from .forms import StudentForm,StudentTermForm,TeacherForm,TeacherTermForm,StudentPaymentForm,TeacherPaymentForm
 from .import models
 
 # Create your views here.
@@ -49,6 +49,28 @@ def add_student_payment(request):
     else:
         form = StudentPaymentForm()
     return render(request, 'college/add_student_payment.html', {'form': form,'title':'ثبت پرداخت وجه دانشجو'})
+
+def add_teacher_payment(request):
+    if request.method == 'POST':
+        form = TeacherPaymentForm(request.POST)
+        if form.is_valid():
+            # form.save()
+            teacher=form.cleaned_data.get('teacher')
+            date_of_payment=form.cleaned_data.get('date_of_payment')
+            hours=form.cleaned_data.get('hours')
+            price_in_hour=form.cleaned_data.get('price_in_hour')
+            total=form.cleaned_data.get('total')
+            account=form.cleaned_data.get('account')
+            models.TeacherPayment.objects.create(teacher=teacher,date_of_payment=date_of_payment,hours=hours,price_in_hour=price_in_hour,total=total,account=account)
+            form=TeacherPaymentForm()
+            return redirect('/')  # Redirect to a success page
+    else:
+        form = TeacherPaymentForm()
+    context={
+        'title':'ثبت وجه استاد',
+        'form':form
+    }
+    return render(request, 'college/add_teacher_payment.html', context)
 
 def add_teacher_term(request):
     if request.method == 'POST':

@@ -70,8 +70,16 @@ class Payment(models.Model):
     def __str__(self):
         return self.student.first_name
 
-    # def get_absolute_url(self):
-    #     return f"/{self.id}/{self.last_name.replace(' ', '-')}"
+class TeacherPayment(models.Model):
+    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE,null=True,verbose_name='استاد')
+    date_of_payment = models.DateField(verbose_name='تاریخ پرداخت')
+    hours = models.IntegerField(verbose_name='ساعت')
+    price_in_hour=models.IntegerField(verbose_name='حقوق ساعت')
+    total=models.IntegerField(verbose_name='مجموع',blank=True,null=True)
+    account = models.CharField(max_length = 150,default=6037991784183869,verbose_name='به حساب')
+
+    def __str__(self):
+        return f'{self.teacher.first_name}-{self.teacher.last_name}'
 
 class Level(models.Model):
     name = models.CharField(max_length = 150,null=True,verbose_name='نام مقطع')
