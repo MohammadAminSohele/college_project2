@@ -81,6 +81,8 @@ class TeacherPayment(models.Model):
     def __str__(self):
         return f'{self.teacher.first_name}-{self.teacher.last_name}'
 
+    objects=product_manager()
+
 class Level(models.Model):
     name = models.CharField(max_length = 150,null=True,verbose_name='نام مقطع')
     regdate = models.DateField(null=True,verbose_name='تاریخ ثبت')

@@ -175,6 +175,20 @@ def show_student_payment_history(request,*args,**kwargs):
     }
     return render(request,'college/show_student_payment_history.html',context)
 
+
+
+def show_teacher_payment_history(request,*args,**kwargs):
+    teacher_id=kwargs['teacherId']
+    teacher_payment=models.TeacherPayment.objects.get_by_id(teacher_id)
+    if teacher_payment is None:
+        raise Http404('تاریخچه وجه استاد مورد نظر یافت نشد ')
+    context={
+        'title':'تاریخچه پرداخت استاد',
+        'teacher_payment':teacher_payment
+    }
+    return render(request,'college/show_teacher_payment_history.html',context)
+    
+
 # def show_student_payment(request,*args,**kwargs):
 #     student_id=kwargs['studentId']
 #     payment=models.Payment.objects.filter(student_id=student_id)

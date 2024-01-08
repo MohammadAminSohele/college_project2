@@ -1,0 +1,13 @@
+{% extends 'shared/_MainLayout.html' %}
+
+
+{% block content %}
+    نام استاد:{{teacher_payment.teacher.first_name}} <br><br>
+    نام خانوادگی استاد:{{teacher_payment.teacher.last_name}} <br><br>
+    تاریخ پرداخت:{{teacher_payment.date_of_payment}} <br><br>
+    ساعت:{{teacher_payment.hours}} <br><br>
+    ساعت پرداختی:{{teacher_payment.price_in_hour}} <br><br>
+    مبلغ کل:{{teacher_payment.total}} <br><br>
+    حساب:{{teacher_payment.account}} <br><br>
+{% endblock content %}
+    
