@@ -9,11 +9,11 @@ urlpatterns = [
     # show
     path('show/student/', views.show_students_info, name='show_students_info'),
     path('show/student/payment_history', views.students_payment_history, name='students_payment_history'),
+    path('show/teacher/payment_history', views.show_teachers_history, name='show_teachers_history'),
     path('show/student/education_history', views.show_students_education_history, name='show_students_education_history'),
     path('show/teacher/', views.show_teachers_info, name='show_teachers_info'),
     path('show/student/<studentId>/<studentLastname>', views.show_student_info, name='show_students_info'),
     path('show/student/payment_history/<studentId>/<studentLastname>', views.show_student_payment_history, name='show_student_payment_history'),
-    path('show/student/payment/<studentId>/<studentLastname>', views.show_student_payment, name='show_student_payment'),
     path('show/student/education_history/<studentId>/<studentLastname>', views.show_student_education_history_info, name='show_student_education_history_info'),
     path('show/teacher/<teachertId>/<teacherLastname>', views.show_teacher_info, name='show_teacher_info'),
     path('show/student/search', views.search_student_list.as_view(), name='search_student_list'),

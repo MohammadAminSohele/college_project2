@@ -44,7 +44,15 @@ def add_student_payment(request):
     if request.method == 'POST':
         form = StudentPaymentForm(request.POST)
         if form.is_valid():
-            form.save()
+            student=form.cleaned_data.get('student')
+            date_of_payment=form.cleaned_data.get('date_of_payment')
+            total=form.cleaned_data.get('total')
+            price=form.cleaned_data.get('price')
+            account=form.cleaned_data.get('account')
+            remaining_price=form.cleaned_data.get('remaining_price')
+            code=form.cleaned_data.get('code')
+            models.Payment.objects.create(student=student,date_of_payment=date_of_payment,total=total,price=price,account=account,remaining_price=remaining_price,code=code)
+            form=StudentPaymentForm()
             return redirect('/')  # Redirect to a success page
     else:
         form = StudentPaymentForm()
@@ -59,9 +67,9 @@ def add_teacher_payment(request):
             date_of_payment=form.cleaned_data.get('date_of_payment')
             hours=form.cleaned_data.get('hours')
             price_in_hour=form.cleaned_data.get('price_in_hour')
-            total=form.cleaned_data.get('total')
             account=form.cleaned_data.get('account')
-            models.TeacherPayment.objects.create(teacher=teacher,date_of_payment=date_of_payment,hours=hours,price_in_hour=price_in_hour,total=total,account=account)
+            total=hours*price_in_hour
+            models.TeacherPayment.objects.create(teacher=teacher,date_of_payment=date_of_payment,hours=hours,price_in_hour=price_in_hour,account=account,total=total)
             form=TeacherPaymentForm()
             return redirect('/')  # Redirect to a success page
     else:
@@ -100,6 +108,14 @@ def students_payment_history(request):
         # 'total':students.get_total_price()
     }
     return render(request,'college/students_payment_history.html',context)
+
+def show_teachers_history(request):
+    techers_payment=models.TeacherPayment.objects.all()
+    context={
+        'title':'تاریخچه وجه استادان',
+        'techers_payment':techers_payment,
+    }
+    return render(request,'college/show_teachers_history.html',context)
 
 def show_students_education_history(request):
     students=models.Student.objects.all().values('first_name','last_name','score')
@@ -151,7 +167,6 @@ def show_student_info(request,*args,**kwargs):
 def show_student_payment_history(request,*args,**kwargs):
     student_id=kwargs['studentId']
     payment=models.Payment.objects.get_by_id(student_id)
-    payment.remaining_price = payment.total - payment.price
     if payment is None:
         raise Http404('تاریخچه وجه دانشجو مورد نظر یافت نشد ')
     context={
@@ -160,16 +175,16 @@ def show_student_payment_history(request,*args,**kwargs):
     }
     return render(request,'college/show_student_payment_history.html',context)
 
-def show_student_payment(request,*args,**kwargs):
-    student_id=kwargs['studentId']
-    payment=models.Payment.objects.filter(student_id=student_id)
-    if payment is None:
-        raise Http404('تاریخچه وجه دانشجو مورد نظر یافت نشد')
-    context={
-        'title':'تاریخچه پرداخت وجه دانشجو',
-        'payment':payment
-    }
-    return render(request,'college/show_student_payment.html',context)
+# def show_student_payment(request,*args,**kwargs):
+#     student_id=kwargs['studentId']
+#     payment=models.Payment.objects.filter(student_id=student_id)
+#     if payment is None:
+#         raise Http404('تاریخچه وجه دانشجو مورد نظر یافت نشد')
+#     context={
+#         'title':'تاریخچه پرداخت وجه دانشجو',
+#         'payment':payment
+#     }
+#     return render(request,'college/show_student_payment.html',context)
 
 def show_student_education_history_info(request,*args,**kwargs):
     student_id=kwargs['studentId']

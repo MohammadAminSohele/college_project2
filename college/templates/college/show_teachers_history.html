@@ -1,0 +1,13 @@
+{% extends 'shared/_MainLayout.html' %}
+
+
+{% block content %}
+    {% for techer_payment in techers_payment %}
+        {{techer_payment.teacher.first_name}} <br><br>
+        {{techer_payment.teacher.last_name}} <br><br>
+        {{techer_payment.hours}} <br><br>
+        {{techer_payment.price_in_hour}} <br><br>
+        {{techer_payment.total}} <br><br>
+        {{techer_payment.account}} <br><br>
+    {% endfor %}
+{% endblock content %}
