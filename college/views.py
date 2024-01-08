@@ -164,6 +164,18 @@ def show_student_info(request,*args,**kwargs):
     }
     return render(request,'college/show_student_info.html',context)
 
+
+def show_student_by_studnt_term(request,*args,**kwargs):
+    studnt_term=kwargs['studnt_term']
+    studnt_term=models.StudentTerm.objects.filter(term__name=studnt_term).first()
+    if studnt_term is None:
+        raise Http404('دانشجویان مورد نظر یافت نشد')
+    context={
+        'title':'نمایش دانشجویان بر حسب ترم',
+        'studnt_term':studnt_term
+    }
+    return render(request,'college/show_student_by_studnt_term.html',context)
+
 def show_student_payment_history(request,*args,**kwargs):
     student_id=kwargs['studentId']
     payment=models.Payment.objects.get_by_id(student_id)

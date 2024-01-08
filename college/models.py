@@ -17,6 +17,8 @@ class product_manager(models.Manager):
         if qs.count() == 1:
             return qs.first()
         return None
+    def get_students_by_term(self, studnt_term):
+        return self.get_queryset().filter(term__name__iexact=studnt_term)
 
 class Teacher(models.Model):
     nat_code = models.CharField(max_length = 150,verbose_name='کد ملی استاد')
@@ -46,8 +48,6 @@ class Student(models.Model):
     score = models.IntegerField(verbose_name='نمره دانشجو')
     regdate = models.DateField(verbose_name='تاریخ ثبت دانشجو')
     description = models.TextField(verbose_name='توضیحات')
-    # payment = models.ForeignKey(Payment, on_delete=models.CASCADE,null=True)
-    
 
     objects=product_manager()
 

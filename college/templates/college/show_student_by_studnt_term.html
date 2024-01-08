@@ -1,0 +1,10 @@
+{% extends 'shared/_MainLayout.html' %}
+
+
+{% block content %}
+    {{studnt_term.student.first_name}} <br><br>
+    {{studnt_term.student.last_name}} <br><br>
+    
+    {{studnt_term.course.name}} <br><br>
+    {{studnt_term.student.regdate}} <br><br>
+{% endblock content %}
