@@ -176,6 +176,18 @@ def show_student_by_studnt_term(request,*args,**kwargs):
     }
     return render(request,'college/show_student_by_studnt_term.html',context)
 
+
+def show_teacher_by_term(request,*args,**kwargs):
+    term=kwargs['term']
+    teacher_term=models.TeacherTerm.objects.filter(term__name=term).all()
+    if teacher_term is None:
+        raise Http404('لیست اساتید برحسب ترم مورد نظر یافت نشد')
+    context={
+        'title':'نمایش اساتید بر حسب ترم',
+        'teacher_term':teacher_term
+    }
+    return render(request,'college/show_teacher_by_term.html',context)
+
 def show_student_payment_by_studnt_term(request,*args,**kwargs):
     studnt_term=kwargs['studnt_term']
     studnt_term=models.Payment.objects.filter(term__name=studnt_term).all()

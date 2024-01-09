@@ -1,0 +1,12 @@
+{% extends 'shared/_MainLayout.html' %}
+
+{% block content %}
+    {% for techer in teacher_term %}
+        نام استاد:{{techer.teacher.first_name}} <br><br>
+        نام خانوادگی استاد:{{techer.teacher.last_name}} <br><br>
+
+        درس استاد:{{techer.course.name}} <br><br>
+        شماره کلاس:{{techer.class_number}} <br><br>
+        <hr>
+    {% endfor %}
+{% endblock content %}

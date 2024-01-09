@@ -14,6 +14,7 @@ urlpatterns = [
     path('show/teacher/', views.show_teachers_info, name='show_teachers_info'),
     # path('show/student/<studentId>/<studentLastname>', views.show_student_info, name='show_students_info'),
     path('show/student/<studnt_term>/', views.show_student_by_studnt_term, name='show_student_by_studnt_term'),
+    path('show/teacher/<term>/', views.show_teacher_by_term, name='show_teacher_by_term'),
     path('show/student/payment/<studnt_term>/', views.show_student_payment_by_studnt_term, name='show_student_payment_by_studnt_term'),
     path('show/student/payment_history/<studentId>/<studentLastname>', views.show_student_payment_history, name='show_student_payment_history'),
     path('show/teacher/payment_history/<teacherId>/<teacherLastname>', views.show_teacher_payment_history, name='show_teacher_payment_history'),
