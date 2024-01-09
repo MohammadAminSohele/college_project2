@@ -3,8 +3,6 @@ from django.db import models
 from django.db.models import Q
 
 # Create your models here.
-
-
     
 class product_manager(models.Manager):
     def search(self, query):
@@ -56,8 +54,47 @@ class Student(models.Model):
     def __str__(self):
         return f'{self.first_name}-{self.last_name}'
     
+class Level(models.Model):
+    name = models.CharField(max_length = 150,null=True,verbose_name='نام مقطع')
+    regdate = models.DateField(null=True,verbose_name='تاریخ ثبت')
+    description = models.TextField(verbose_name='توضیحات')
+
+    def __str__(self):
+        return self.name
+
+class Course(models.Model):
+    name = models.CharField(max_length = 150,verbose_name='نام درس')
+    level = models.ForeignKey(Level, on_delete=models.CASCADE,verbose_name='مقطع')
+    regdate = models.DateField(verbose_name='تاریخ ثبت')
+    description = models.TextField(verbose_name='توضیحات')
+
+    def __str__(self):
+        return self.name
+class Term(models.Model):
+    name = models.CharField(max_length = 150,verbose_name='نام ترم')
+    startDate = models.DateField(verbose_name='تاریخ شروع')
+    endDate = models.DateField(verbose_name='تاریخ پایان')
+    regdate = models.DateField(verbose_name='تاریخ ثبت')
+    description = models.TextField(verbose_name='توضیحات')
+
+    def __str__(self):
+        return self.name    
+
+class StudentTerm(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE,verbose_name='دانشجو')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE,verbose_name='درس')
+    term = models.ForeignKey(Term, on_delete=models.CASCADE,verbose_name='ترم')
+    regdate = models.DateField(verbose_name='تاریخ ثبت')
+    description = models.TextField(verbose_name='توضیحات')
+    
+    objects=product_manager()
+
+    def __str__(self):
+        return self.student.last_name 
+    
 class Payment(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE,null=True,verbose_name='دانشجو')
+    term = models.ForeignKey(Term, on_delete=models.CASCADE)
     date_of_payment = models.DateField(verbose_name='تاریخ پرداخت')
     total = models.IntegerField(default=2000000,blank=True,null=True,verbose_name='مبلغ قابل پرداختت')
     price = models.IntegerField(verbose_name='مبلغ')
@@ -82,44 +119,6 @@ class TeacherPayment(models.Model):
         return f'{self.teacher.first_name}-{self.teacher.last_name}'
 
     objects=product_manager()
-
-class Level(models.Model):
-    name = models.CharField(max_length = 150,null=True,verbose_name='نام مقطع')
-    regdate = models.DateField(null=True,verbose_name='تاریخ ثبت')
-    description = models.TextField(verbose_name='توضیحات')
-
-    def __str__(self):
-        return self.name
-class Course(models.Model):
-    name = models.CharField(max_length = 150,verbose_name='نام درس')
-    level = models.ForeignKey(Level, on_delete=models.CASCADE,verbose_name='مقطع')
-    regdate = models.DateField(verbose_name='تاریخ ثبت')
-    description = models.TextField(verbose_name='توضیحات')
-
-    def __str__(self):
-        return self.name
-class Term(models.Model):
-    name = models.CharField(max_length = 150,verbose_name='نام ترم')
-    startDate = models.DateField(verbose_name='تاریخ شروع')
-    endDate = models.DateField(verbose_name='تاریخ پایان')
-    regdate = models.DateField(verbose_name='تاریخ ثبت')
-    description = models.TextField(verbose_name='توضیحات')
-
-    def __str__(self):
-        return self.name
-    
-class StudentTerm(models.Model):
-    student = models.ForeignKey(Student, on_delete=models.CASCADE,verbose_name='دانشجو')
-    course = models.ForeignKey(Course, on_delete=models.CASCADE,verbose_name='درس')
-    term = models.ForeignKey(Term, on_delete=models.CASCADE,verbose_name='ترم')
-    regdate = models.DateField(verbose_name='تاریخ ثبت')
-    description = models.TextField(verbose_name='توضیحات')
-    
-    objects=product_manager()
-
-    def __str__(self):
-        return self.student.last_name 
-    
 
 class TeacherTerm(models.Model):
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE,verbose_name='استاد')
