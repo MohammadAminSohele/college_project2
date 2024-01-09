@@ -5,7 +5,7 @@ clone project
 run this command : 
 python manage.py runserver
 
-superuser is exist but you can create anther to access panel admin:
+superuser is exist you can access with username : ali , password=1 but you can create anther to access panel admin:
 python manage.py createsuperuser
 
 ![Screenshot 2024-01-09 151826](https://github.com/MohammadAminSohele/college_project2/assets/122188222/ef3467b9-cc9e-4cee-a543-14cc9f4cd563)
