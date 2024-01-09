@@ -49,8 +49,6 @@ class Student(models.Model):
 
     objects=product_manager()
 
-    # college/show/student/3
-
     def __str__(self):
         return f'{self.first_name}-{self.last_name}'
     

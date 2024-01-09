@@ -25,8 +25,10 @@ from .import views
 
 urlpatterns = [
     path('',views.index_view),
+    path('',include('college.urls')),
+    path('header', views.header, name="header"),
+    path('footer', views.footer, name="footer"),
     path('account/',include('account.urls')),
-    path('college/',include('college.urls')),
     path('admin/', admin.site.urls),
 ]
 if settings.DEBUG:

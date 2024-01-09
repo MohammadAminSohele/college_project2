@@ -7,7 +7,7 @@ urlpatterns = [
     path('edit/student/<student_id>', views.edit_student_info, name='edit_student_info'),
     path('edit/teacher/<teacher_id>', views.edit_teacher_info, name='edit_teacher_info'),
     # show
-    path('show/student/', views.show_students_info, name='show_students_info'),
+    path('show/student/', views.show_students_info.as_view(), name='show_students_info'),
     path('show/student/payment_history', views.students_payment_history, name='students_payment_history'),
     path('show/teacher/payment_history', views.show_teachers_history, name='show_teachers_history'),
     path('show/student/education_history', views.show_students_education_history, name='show_students_education_history'),

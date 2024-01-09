@@ -92,12 +92,18 @@ def add_teacher_term(request):
     return render(request, 'college/add_teacher_term.html', {'form': form,'title':'ثبت ترم برای استاد'})
 
 
-def show_students_info(request):
-    students=models.Student.objects.all().values('nat_code','first_name','last_name')
-    context={
-        'students':students,'title':'اطلاعات دانشجویان'
-    }
-    return render(request,'college/show_students_info.html',context)
+# def show_students_info(request):
+#     students=models.Student.objects.all().values('nat_code','first_name','last_name')
+#     context={
+#         'students':students,'title':'اطلاعات دانشجویان'
+#     }
+#     return render(request,'college/show_students_info.html',context)
+
+class show_students_info(ListView):
+    template_name='college/show_students_info.html'
+    def get_queryset(self):
+        return models.Student.objects.all().values('nat_code','first_name','last_name')
+    
 
 def students_payment_history(request):
     students=models.Payment.objects.all()

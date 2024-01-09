@@ -2,10 +2,11 @@
 
 {% block content %}
     {% for student in students %}
-    {{student.student.last_name}} <br><br>
-    {{student.date_of_payment}} <br><br>
-    {{student.price}} <br><br>
-    {{student.account}} <br><br>
-    {{ student.remaining_price }} <br><br>
+    نام دانشجو:{{student.student.first_name}} <br><br>
+    نام خانوادگی دانشجو:{{student.student.last_name}} <br><br>
+    تاریخ پرداخت:{{student.date_of_payment}} <br><br>
+    مبلغ:{{student.price}} <br><br>
+    حساب:{{student.account}} <br><br>
+    مبلغ باقی مانده:{{ student.remaining_price }} <br><br>
     {% endfor %}
 {% endblock content %}
